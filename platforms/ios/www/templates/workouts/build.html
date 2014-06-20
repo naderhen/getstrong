@@ -1,0 +1,22 @@
+<ion-view title="New Workout">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header builder">
+
+	<div class="list card exercise-card" ng-repeat="exercise in exercises">
+		<div class="item">
+			<div class="exercise-header"><h2>{{exercise.name}}</h2></div>
+			<div class="set-group" ng-repeat="set in exercise.sets" ng-click="clickSet(set)">
+				<span class="set-circle" ng-class="{accomplished: set.accomplished_reps > 0}">{{set.accomplished_reps > 0 && set.accomplished_reps || set.prescribed_reps}}</span>
+				<p class="set-weight">{{set.weight}}</p>
+			</div>
+		</div>
+	</div>
+
+	<button class="button button-block button-assertive" ng-click="finish()">
+		Finish Workout
+	</button>
+
+  </ion-content>
+</ion-view>

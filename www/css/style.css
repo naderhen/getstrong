@@ -1,0 +1,57 @@
+/* Empty. Add your own CSS if you like */
+.builder {
+	background-color: #EAEAEA;
+}
+
+.finish-workout { margin: 0 0 50px 0 !important; }
+
+.exercise-card .item {
+	border: none !important;
+}
+
+.exercise-header {
+	padding: 0 0 10px 0;
+	margin: 0 0 10px 0;
+	border-bottom: 1px solid #CCC;
+}
+
+.exercise-card h2 {
+	color: #e2352e;
+	text-transform: uppercase;
+}
+
+.set-group {
+	float: left;
+	width: 45px;
+	margin: 4px;
+}
+
+.set-circle {
+	position: relative;
+	display: block;
+	width: 45px;
+	height: 45px;
+	line-height: 45px;
+	border: 1px solid #CCC;
+	text-align: center;
+	color: #FFF;
+	font-weight: bold;
+	border-radius: 50%;
+	color: #CCC;
+	font-weight: normal;
+}
+
+.set-circle.accomplished {
+	background-color: #e2352e;
+	color: #FFF;
+	border: none;
+}
+
+.set-weight {
+	display: block;
+	margin: 5px 0 0 0;
+	font-size: 8px;
+	font-weight: bold;
+	text-align: center;
+}
+

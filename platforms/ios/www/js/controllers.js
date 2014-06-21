@@ -7,13 +7,25 @@ angular.module('starter.controllers', [])
 	console.log('home', $scope);
 })
 
-.controller('BuildWorkoutCtrl', function($scope) {
+.controller('SelectRoutineCtrl', function($scope, $http) {
+	$http({method: 'GET', url: 'http://192.168.1.4:3000/routines'}).
+		success(function(data, status, headers, config) {
+			$scope.routines = data;
+			console.log(data)
+		}).
+		error(function(data, status, headers, config) {
+			alert('error');
+		});
+})
+
+.controller('BuildWorkoutCtrl', function($scope, $http, $ionicPopup) {
+
 	$scope.exercises = [
 		{name: "Squat", weight: 135, weight_increment: 20, set_reps: [12, 10, 8, 6], sets: []},
 		{name: "Bench Press", weight: 135, weight_increment: 20, set_reps: [5, 5, 5], sets: []},
 		{name: "Overhead Press", weight: 65, weight_increment: 20, set_reps: [10, 6, 4, 2, 1], sets: []}
 	]
-
+ 
 	_.each($scope.exercises, function(exercise) {
 		_.each(exercise.set_reps, function(rep_num, idx) {
 			exercise.sets.push({weight: (idx == 0 ? exercise.weight : exercise.sets[idx - 1].weight) + exercise.weight_increment, prescribed_reps: rep_num, accomplished_reps: 0});

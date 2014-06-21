@@ -4,12 +4,12 @@
   </ion-nav-buttons>
   <ion-content class="has-header builder">
 
-	<div class="list card exercise-card" ng-repeat="exercise in exercises">
+	<div class="list card exercise-card" ng-repeat="setGroup in workout.setGroups">
 		<div class="item">
-			<div class="exercise-header"><h2>{{exercise.name}}</h2></div>
-			<div class="set-group" ng-repeat="set in exercise.sets" ng-click="clickSet(set)">
-				<span class="set-circle" ng-class="{accomplished: set.accomplished_reps > 0}">{{set.accomplished_reps > 0 && set.accomplished_reps || set.prescribed_reps}}</span>
-				<p class="set-weight">{{set.weight}}</p>
+			<div class="exercise-header"><h2>{{setGroup.exercise.name}}</h2></div>
+			<div class="set-group" ng-repeat="workset in setGroup.worksets" ng-click="clickSet(workset)">
+				<span class="set-circle" ng-class="{accomplished: workset.accomplished_reps > 0}">{{workset.accomplished_reps > 0 && workset.accomplished_reps || workset.prescribed_reps}}</span>
+				<p class="set-weight">{{workset.weight}}</p>
 			</div>
 		</div>
 	</div>

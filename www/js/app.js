@@ -28,8 +28,17 @@ angular.module('starter', ['ionic', 'starter.controllers'])
       templateUrl: "templates/menu.html",
       controller: 'AppCtrl'
     })
+    .state('app.select_routine', {
+      url: '/select_routine',
+      views: {
+        'menuContent': {
+          templateUrl: "templates/routines/select.html",
+          controller: "SelectRoutineCtrl"
+        }
+      }
+    })
     .state('app.build_workout', {
-      url: '/build_workout',
+      url: '/build_workout/{routineId:[0-9]{1,4}}',
       views: {
         'menuContent': {
           templateUrl: "templates/workouts/build.html",

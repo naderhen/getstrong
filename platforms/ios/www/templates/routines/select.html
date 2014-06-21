@@ -1,0 +1,21 @@
+<ion-view title="Routines">
+  <ion-nav-buttons side="left">
+    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  <ion-content class="has-header builder">
+
+	<div class="list card routine-card" ng-repeat="routine in routines">
+		<div class="item">
+			<div class="exercise-header"><h2>{{routine.name}}</h2></div>
+			
+			<div class="step-group" ng-repeat="step in routine.steps" style="clear:both;">
+				<h4>{{step.exercise.name}}</h4>
+				<div class="set-group" ng-repeat="reps in step.set_reps track by $index">
+					<span class="set-circle accomplished">{{reps}}</span>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+  </ion-content>
+</ion-view>

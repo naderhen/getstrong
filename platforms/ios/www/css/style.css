@@ -3,6 +3,8 @@
 	background-color: #EAEAEA;
 }
 
+.finish-workout { margin: 0 0 50px 0 !important; }
+
 .exercise-card .item {
 	border: none !important;
 }

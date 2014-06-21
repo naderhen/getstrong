@@ -7,17 +7,49 @@ angular.module('starter.controllers', [])
 	console.log('home', $scope);
 })
 
-.controller('BuildWorkoutCtrl', function($scope) {
-	$scope.exercises = [
-		{name: "Squat", weight: 135, weight_increment: 20, set_reps: [12, 10, 8, 6], sets: []},
-		{name: "Bench Press", weight: 135, weight_increment: 20, set_reps: [5, 5, 5], sets: []},
-		{name: "Overhead Press", weight: 65, weight_increment: 20, set_reps: [10, 6, 4, 2, 1], sets: []}
-	]
+.controller('SelectRoutineCtrl', function($scope, $http, $state) {
+	$http({method: 'GET', url: 'http://192.168.1.4:3000/routines'}).
+		success(function(data, status, headers, config) {
+			$scope.routines = data;
+			console.log(data)
+		}).
+		error(function(data, status, headers, config) {
+			alert('error');
+		});
 
-	_.each($scope.exercises, function(exercise) {
-		_.each(exercise.set_reps, function(rep_num, idx) {
-			exercise.sets.push({weight: (idx == 0 ? exercise.weight : exercise.sets[idx - 1].weight) + exercise.weight_increment, prescribed_reps: rep_num, accomplished_reps: 0});
+	$scope.selectRoutine = function(routine) {
+		$state.go('app.build_workout', {routineId: routine.id})
+	}
+})
+
+.controller('BuildWorkoutCtrl', function($scope, $http, $ionicPopup, $stateParams) {
+	$scope.workout = {
+		setGroups: []
+	}
+
+	$http({method: 'GET', url: 'http://192.168.1.4:3000/routines/' + $stateParams.routineId}).
+		success(function(data, status, headers, config) {
+			$scope.routine = data;
+		}).
+		error(function(data, status, headers, config) {
+			alert('error');
+		});
+
+	$scope.buildWorkout = function() {
+		_.each($scope.routine.steps, function(step) {
+			var setGroup = {exercise: step.exercise, worksets: []};
+			$scope.workout.setGroups.push(setGroup);
+			_.each(step.set_reps, function(rep_num, idx) {
+				var new_weight = 
+				setGroup.worksets.push({ exercise: step.exercise, weight: (idx == 0 ? step.start_weight : setGroup.worksets[idx - 1].weight) + step.weight_increment, prescribed_reps: rep_num, accomplished_reps: 0 })
+			});
 		})
+	}
+
+	$scope.$watch('routine', function(val) {
+		if (typeof val !== "undefined") {
+			$scope.buildWorkout();
+		}
 	})
 
 	$scope.clickSet = function(set) {
